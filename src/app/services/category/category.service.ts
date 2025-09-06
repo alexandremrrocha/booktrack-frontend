@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class Category {
+export class CategoryService {
   private apiUrl = 'http://localhost:3000/category';
 
   constructor(private http: HttpClient) {}

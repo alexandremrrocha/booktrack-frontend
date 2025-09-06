@@ -36,7 +36,7 @@ export class AuthorForm implements OnInit {
     }
   }
 
-   public async loadAuthor() {
+  public async loadAuthor() {
     const author = await this.authorService.getById(this.id!);  
     this.form.patchValue(author);
   }

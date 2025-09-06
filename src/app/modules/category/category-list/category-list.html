@@ -1,1 +1,10 @@
-<p>category-list works!</p>
+<h2>Categorias</h2>
+<a routerLink="/categories/new">➕ Nova Categoria</a>
+
+<ul>
+  <li *ngFor="let category of categories">
+    {{ category.name }}
+    | <a [routerLink]="['/categories/edit', category.id]">Editar</a>
+    | <button (click)="deleteAuthor(category.id)">Excluir</button>
+  </li>
+</ul>
