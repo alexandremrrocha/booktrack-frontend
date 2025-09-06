@@ -1,1 +1,12 @@
-<p>author-form works!</p>
+<h2>{{ id ? 'Editar Autor' : 'Novo Autor' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="saveAuthor()">
+  <label>Nome:</label>
+  <input formControlName="name" />
+
+  <label>Data de Nascimento:</label>
+  <input type="date" formControlName="birthDate" />
+
+  <button type="submit">Salvar</button>
+  <a routerLink="/authors">Cancelar</a>
+</form>

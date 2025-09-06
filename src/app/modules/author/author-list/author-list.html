@@ -1,1 +1,10 @@
-<p>author-list works!</p>
+<h2>Autores</h2>
+<a routerLink="/authors/new">➕ Novo Autor</a>
+
+<ul>
+  <li *ngFor="let author of authors">
+    {{ author.name }} ({{ author.birthDate || 'Sem data' }})
+    | <a [routerLink]="['/authors/edit', author.id]">Editar</a>
+    | <button (click)="deleteAuthor(author.id)">Excluir</button>
+  </li>
+</ul>
