@@ -4,5 +4,5 @@ export interface BookModel {
     categoryId: number;
     authorId: number;
     status: string;
-    pages: number; 
+    pages?: number; 
 }

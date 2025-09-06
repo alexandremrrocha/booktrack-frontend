@@ -1,1 +1,15 @@
-<p>book-form works!</p>
+<h2>{{ id ? 'Editar Livro' : 'Novo Livro' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="saveBook()">
+  <label>Titulo:</label>
+  <input formControlName="title" />
+
+  <label>Status:</label>
+  <input type="text" formControlName="status" />
+
+  <label>Paginas:</label>
+  <input type="number" formControlName="pages" />
+
+  <button type="submit">Salvar</button>
+  <a routerLink="/books">Cancelar</a>
+</form>
