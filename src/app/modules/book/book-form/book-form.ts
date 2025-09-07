@@ -91,7 +91,7 @@ export class BookForm {
         });
         this.router.navigate(['/books']);
       }      
-    } catch (error: any) {              
+    } catch (error) {              
       Swal.fire({
         icon: 'error',
         title: 'Erro inesperado',

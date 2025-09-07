@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CategoryService } from '../../../services/category/category.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-category-form',
@@ -42,15 +43,40 @@ export class CategoryForm {
 
   public async saveCategory() {
     if (this.form.invalid) {
-      return;
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro de validação',
+        html: 'Preencha todos os campos'
+      });
+      return
     }
     
-    if (this.id){
-      await this.categoryService.update(this.id, this.form.value);
-      this.router.navigate(['/categories'])
-    } else {
-      await this.categoryService.create(this.form.value);
-      this.router.navigate(['/categories']);
-    }
+    try {
+      if (this.id){
+        await this.categoryService.update(this.id, this.form.value);
+        Swal.fire({
+          icon: 'success',
+          title: 'Categoria atualizada!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/categories'])
+      } else {
+        await this.categoryService.create(this.form.value);
+        Swal.fire({
+          icon: 'success',
+          title: 'Categoria salva!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/categories']);
+      }      
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro inesperado',
+        text: 'Não foi possível salvar a categoria.'
+      }); 
+    }    
   }
 }

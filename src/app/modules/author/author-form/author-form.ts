@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthorService } from '../../../services/author/author.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-author-form',
@@ -25,7 +26,7 @@ export class AuthorForm implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      birthDate: ['']
+      birthDate: ['', Validators.required]
     });
 
     const paramId = this.route.snapshot.paramMap.get('id');
@@ -43,15 +44,41 @@ export class AuthorForm implements OnInit {
 
   public async saveAuthor() {
     if (this.form.invalid) {
-      return;
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro de validação',
+        html: 'Preencha todos os campos'
+      });
+      return
     }
     
-    if (this.id){
-      await this.authorService.update(this.id, this.form.value);
-      this.router.navigate(['/authors'])
-    } else {
-      await this.authorService.create(this.form.value);
-      this.router.navigate(['/authors']);
+    try {
+      if (this.id){
+        await this.authorService.update(this.id, this.form.value);
+        Swal.fire({
+          icon: 'success',
+          title: 'Autor atualizado!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/authors'])
+      } else {
+        await this.authorService.create(this.form.value);
+        Swal.fire({
+          icon: 'success',
+          title: 'Autor salvo!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/authors']);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro inesperado',
+        text: 'Não foi possível salvar o autor.'
+      }); 
     }
+    
   }
 }
