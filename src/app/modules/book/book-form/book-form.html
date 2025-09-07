@@ -10,6 +10,22 @@
   <label>Paginas:</label>
   <input type="number" formControlName="pages" />
 
+  <label>Autor:</label>
+  <select formControlName="authorId">
+    <option [ngValue]="null">-- Selecione um autor --</option>
+    <option *ngFor="let author of authors" [ngValue]="author.id">
+      {{ author.name }}
+    </option>
+  </select>
+
+  <label>Categoria:</label>
+  <select formControlName="categoryId">
+    <option [ngValue]="null">-- Selecione uma categoria --</option>
+    <option *ngFor="let category of categories" [ngValue]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+
   <button type="submit">Salvar</button>
   <a routerLink="/books">Cancelar</a>
 </form>

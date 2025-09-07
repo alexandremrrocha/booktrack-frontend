@@ -1,10 +1,36 @@
-<h2>Livros</h2>
-<a routerLink="/books/new">➕ Novo Livro</a>
+<h2 class="list-title">
+  <i class="fas fa-book"></i> Lista de Livros
+</h2>
 
-<ul>
-  <li *ngFor="let book of books">
-    Titulo: {{ book.title }} - Status: {{ book.status }} - Paginas totais: {{ book.pages }}
-    | <a [routerLink]="['/books/edit', book.id]">Editar</a>
-    | <button (click)="deleteBook(book.id)">Excluir</button>
-  </li>
-</ul>
+<table class="table-list">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Status</th>
+      <th>Páginas</th>
+      <th>Autor</th>
+      <th>Categoria</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of books">
+      <td>{{ book.title }}</td>
+      <td>{{ book.status }}</td>
+      <td>{{ book.pages || '-' }}</td>
+      <td>{{ book.author?.name || 'Sem autor' }}</td>
+      <td>{{ book.category?.name || 'Sem categoria' }}</td>
+      <td>
+        <a [routerLink]="['/books/edit', book.id]" class="btn btn-edit">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button (click)="deleteBook(book.id)" class="btn btn-delete">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table><br/>
+<a routerLink="/books/new" class="btn btn-new">
+  <i class="fas fa-plus"></i> Novo Livro
+</a>

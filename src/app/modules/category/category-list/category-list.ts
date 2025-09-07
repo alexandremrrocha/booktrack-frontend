@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CategoryService } from '../../../services/category/category.service';
 import { CategoryModel } from '../../../models/category.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-category-list',
@@ -23,7 +24,27 @@ export class CategoryList implements OnInit {
     this.categories = await this.categoryService.getAll();  
   }
 
-  public async deleteAuthor(id: number) {
-    await this.categoryService.delete(id);
+  public async deleteCategory(id: number) {
+    const result = await Swal.fire({
+      title: 'Tem certeza?',
+      text: 'Você não poderá reverter essa ação!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4caf50',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if(result.isConfirmed){
+      await this.categoryService.delete(id);
+      await this.loadCategories();
+      Swal.fire({
+        title: 'Excluído!',
+        text: 'A categoria foi removida com sucesso.',
+        icon: 'success',
+        confirmButtonColor: '#4caf50'
+      });
+    }
   }
 }

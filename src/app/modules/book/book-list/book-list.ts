@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BookService } from '../../../services/book/book.service';
 import { BookModel } from '../../../models/book.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-list',
@@ -24,7 +25,27 @@ export class BookList implements OnInit{
   }
 
   public async deleteBook(id: number) {
-    await this.bookService.delete(id);
+    const result = await Swal.fire({
+      title: 'Tem certeza?',
+      text: 'Você não poderá reverter essa ação!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4caf50',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if(result.isConfirmed){
+      await this.bookService.delete(id);
+      await this.loadBooks();
+      Swal.fire({
+        title: 'Excluído!',
+        text: 'O livro foi removido com sucesso.',
+        icon: 'success',
+        confirmButtonColor: '#4caf50'
+      });
+    }
   }
 
 }

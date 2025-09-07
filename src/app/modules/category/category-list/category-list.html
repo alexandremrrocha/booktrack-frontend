@@ -1,10 +1,28 @@
-<h2>Categorias</h2>
-<a routerLink="/categories/new">➕ Nova Categoria</a>
+<h2 class="list-title">
+  <i class="fas fa-folder"></i> Lista de Categorias
+</h2>
 
-<ul>
-  <li *ngFor="let category of categories">
-    {{ category.name }}
-    | <a [routerLink]="['/categories/edit', category.id]">Editar</a>
-    | <button (click)="deleteAuthor(category.id)">Excluir</button>
-  </li>
-</ul>
+<table class="table-list">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categories">
+      <td>{{ category.name }}</td>
+      <td>
+        <a [routerLink]="['/categories/edit', category.id]" class="btn btn-edit">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button (click)="deleteCategory(category.id)" class="btn btn-delete">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table><br/>
+<a routerLink="/categories/new" class="btn btn-new">
+  <i class="fas fa-plus"></i> Nova Categoria
+</a>

@@ -1,7 +1,14 @@
-<h1>📚 BookTrack</h1>
-<nav>
-  <a routerLink="/authors">Autores</a> |
-  <a routerLink="/books">Livros</a> |
-  <a routerLink="/categories">Categorias</a>
-</nav>
-<router-outlet></router-outlet>
+<header class="navbar">
+  <div class="navbar-left">
+    <h1>📚 Gerenciador de Livros</h1>
+  </div>
+  <div class="navbar-right">
+    <a routerLink="/authors" routerLinkActive="active">Autores</a>    
+    <a routerLink="/categories" routerLinkActive="active">Categorias</a>
+    <a routerLink="/books" routerLinkActive="active">Livros</a>
+  </div>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

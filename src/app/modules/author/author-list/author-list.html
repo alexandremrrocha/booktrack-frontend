@@ -1,10 +1,30 @@
-<h2>Autores</h2>
-<a routerLink="/authors/new">➕ Novo Autor</a>
+<h2 class="list-title">
+  <i class="fas fa-user"></i> Lista de Autores
+</h2>
 
-<ul>
-  <li *ngFor="let author of authors">
-    {{ author.name }} ({{ author.birthDate || 'Sem data' }})
-    | <a [routerLink]="['/authors/edit', author.id]">Editar</a>
-    | <button (click)="deleteAuthor(author.id)">Excluir</button>
-  </li>
-</ul>
+<table class="table-list">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let author of authors">
+      <td>{{ author.name }}</td>
+      <td>{{ author.birthDate || 'Sem data' }}</td>
+      <td>
+        <a [routerLink]="['/authors/edit', author.id]" class="btn btn-edit">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button (click)="deleteAuthor(author.id)" class="btn btn-delete">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table><br/>
+<a routerLink="/authors/new" class="btn btn-new">
+  <i class="fas fa-plus"></i> Novo Autor
+</a>

@@ -3,6 +3,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BookService } from '../../../services/book/book.service';
+import { AuthorModel } from '../../../models/author.model';
+import { CategoryModel } from '../../../models/category.model';
+import { AuthorService } from '../../../services/author/author.service';
+import { CategoryService } from '../../../services/category/category.service';
 
 @Component({
   selector: 'app-book-form',
@@ -14,26 +18,37 @@ import { BookService } from '../../../services/book/book.service';
 export class BookForm {
   form!: FormGroup;
   id!: number | null;
+  authors: AuthorModel[] = [];
+  categories: CategoryModel[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private bookService: BookService
+    private bookService: BookService,
+    private authorService: AuthorService,
+    private categoryService: CategoryService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       status: ['', Validators.required],
-      pages: ['']
+      pages: [''],
+      authorId: [0],
+      categoryId: [0]
     });
 
     const paramId = this.route.snapshot.paramMap.get('id');
     this.id = paramId ? Number(paramId) : null;
-
+    
+    [this.authors, this.categories] = await Promise.all([
+      this.authorService.getAll(),
+      this.categoryService.getAll()
+    ]); 
+    
     if (this.id) {
-      this.loadBook();
+      this.loadBook();          
     }
   }
 
