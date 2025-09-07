@@ -1,31 +1,44 @@
-<h2>{{ id ? 'Editar Livro' : 'Novo Livro' }}</h2>
+<h2 class="form-title">
+  <i class="fas" [ngClass]="id ? 'fa-book-open' : 'fa-book'"></i>
+  {{ id ? 'Editar Livro' : 'Novo Livro' }}
+</h2>
 
-<form [formGroup]="form" (ngSubmit)="saveBook()">
-  <label>Titulo:</label>
-  <input formControlName="title" />
+<form [formGroup]="form" (ngSubmit)="saveBook()" class="form-container">
 
-  <label>Status:</label>
-  <input type="text" formControlName="status" />
+  <div class="form-group">
+    <label for="title">Título:</label>
+    <input id="title" formControlName="title" placeholder="Digite o título do livro" />
+  </div>
 
-  <label>Paginas:</label>
-  <input type="number" formControlName="pages" />
+  <div class="form-group">
+    <label for="status">Status:</label>
+    <select id="status" formControlName="status">
+      <option *ngFor="let status of bookStatusList" [value]="status">{{ status }}</option>
+    </select>
+  </div>
 
-  <label>Autor:</label>
-  <select formControlName="authorId">
-    <option [ngValue]="null">-- Selecione um autor --</option>
-    <option *ngFor="let author of authors" [ngValue]="author.id">
-      {{ author.name }}
-    </option>
-  </select>
+  <div class="form-group">
+    <label for="pages">Páginas:</label>
+    <input type="number" id="pages" formControlName="pages" placeholder="Número de páginas" />
+  </div>
 
-  <label>Categoria:</label>
-  <select formControlName="categoryId">
-    <option [ngValue]="null">-- Selecione uma categoria --</option>
-    <option *ngFor="let category of categories" [ngValue]="category.id">
-      {{ category.name }}
-    </option>
-  </select>
+  <div class="form-group">
+    <label for="author">Autor:</label>
+    <select id="author" formControlName="authorId">   
+      <option *ngFor="let author of authors" [ngValue]="author.id">{{ author.name }}</option>
+    </select>
+  </div>
 
-  <button type="submit">Salvar</button>
-  <a routerLink="/books">Cancelar</a>
+  <div class="form-group">
+    <label for="category">Categoria:</label>
+    <select id="category" formControlName="categoryId">     
+      <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+    <a routerLink="/books" class="btn-cancel">Cancelar</a>
+  </div>
+
 </form>

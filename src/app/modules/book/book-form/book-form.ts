@@ -7,11 +7,14 @@ import { AuthorModel } from '../../../models/author.model';
 import { CategoryModel } from '../../../models/category.model';
 import { AuthorService } from '../../../services/author/author.service';
 import { CategoryService } from '../../../services/category/category.service';
+import { BookStatus, BookStatusList } from '../book-status.enum';
+import { NgSelectModule } from '@ng-select/ng-select';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, NgSelectModule],
   templateUrl: './book-form.html',
   styleUrl: './book-form.css'
 })
@@ -20,6 +23,7 @@ export class BookForm {
   id!: number | null;
   authors: AuthorModel[] = [];
   categories: CategoryModel[] = [];
+  bookStatusList = BookStatusList; 
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,9 +38,9 @@ export class BookForm {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       status: ['', Validators.required],
-      pages: [''],
-      authorId: [0],
-      categoryId: [0]
+      pages: ['', Validators.required],
+      authorId: [0, Validators.required],
+      categoryId: [0, Validators.required]
     });
 
     const paramId = this.route.snapshot.paramMap.get('id');
@@ -59,15 +63,40 @@ export class BookForm {
 
   public async saveBook() {
     if (this.form.invalid) {
-      return;
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro de validação',
+        html: 'Preencha todos os campos'
+      });
+      return
     }
-    
-    if (this.id){
-      await this.bookService.update(this.id, this.form.value);
-      this.router.navigate(['/books'])
-    } else {
-      await this.bookService.create(this.form.value);
-      this.router.navigate(['/books']);
-    }
+
+    try {
+      if (this.id){
+        await this.bookService.update(this.id, this.form.value);
+        Swal.fire({
+          icon: 'success',
+          title: 'Livro atualizado!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/books'])
+      } else {
+        await this.bookService.create(this.form.value);
+        Swal.fire({
+          icon: 'success',
+          title: 'Livro salvo!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/books']);
+      }      
+    } catch (error: any) {              
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro inesperado',
+        text: 'Não foi possível salvar o livro.'
+      });      
+    }    
   }
 }

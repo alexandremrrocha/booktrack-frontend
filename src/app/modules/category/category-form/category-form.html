@@ -1,9 +1,18 @@
-<h2>{{ id ? 'Editar Categoria' : 'Nova Categoria' }}</h2>
+<h2 class="form-title">
+  <i class="fas" [ngClass]="id ? 'fa-edit' : 'fa-plus'"></i>
+  {{ id ? 'Editar Categoria' : 'Nova Categoria' }}
+</h2>
 
-<form [formGroup]="form" (ngSubmit)="saveCategory()">
-  <label>Nome:</label>
-  <input formControlName="name" />  
+<form [formGroup]="form" (ngSubmit)="saveCategory()" class="form-container">    
 
-  <button type="submit">Salvar</button>
-  <a routerLink="/categories">Cancelar</a>
+  <div class="form-group">
+    <label for="name">Nome:</label>
+    <input id="name" formControlName="name" placeholder="Digite o nome da categoria" />
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+    <a routerLink="/categories" class="btn-cancel">Cancelar</a>
+  </div>
 </form>
+
