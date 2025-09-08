@@ -5,6 +5,7 @@ import { BookList } from './modules/book/book-list/book-list';
 import { BookForm } from './modules/book/book-form/book-form';
 import { CategoryList } from './modules/category/category-list/category-list';
 import { CategoryForm } from './modules/category/category-form/category-form';
+import { DashboardComponent } from './modules/dashboard/dashboard';
 
 export const routes: Routes = [
   { path: 'authors', component: AuthorList },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'categories', component: CategoryList },
   { path: 'categories/new', component: CategoryForm },
   { path: 'categories/edit/:id', component: CategoryForm },
+  { path: 'dashboards', component: DashboardComponent },
 
   { path: '', redirectTo: '/authors', pathMatch: 'full' }
 ];

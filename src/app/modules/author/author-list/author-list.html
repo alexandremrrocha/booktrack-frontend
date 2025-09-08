@@ -13,7 +13,7 @@
   <tbody>
     <tr *ngFor="let author of authors">
       <td>{{ author.name }}</td>
-      <td>{{ author.birthDate || 'Sem data' }}</td>
+      <td>{{ author.birthDate ? (author.birthDate | date:'dd/MM/yyyy') : 'Sem data' }}</td>
       <td>
         <a [routerLink]="['/authors/edit', author.id]" class="btn btn-edit">
           <i class="fas fa-edit"></i>

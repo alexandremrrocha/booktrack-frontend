@@ -18,8 +18,8 @@
       <td>{{ book.title }}</td>
       <td>{{ book.status }}</td>
       <td>{{ book.pages || '-' }}</td>
-      <td>{{ book.author?.name || 'Sem autor' }}</td>
-      <td>{{ book.category?.name || 'Sem categoria' }}</td>
+      <td>{{ book.author.name || 'Sem autor' }}</td>
+      <td>{{ book.category.name || 'Sem categoria' }}</td>
       <td>
         <a [routerLink]="['/books/edit', book.id]" class="btn btn-edit">
           <i class="fas fa-edit"></i>
