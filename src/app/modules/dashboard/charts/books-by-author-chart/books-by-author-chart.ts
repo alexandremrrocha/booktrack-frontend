@@ -35,7 +35,7 @@ export class BooksByAuthorChartComponent implements OnInit {
 
 
     new Chart('booksByAuthorChart', {
-       type: 'bar',
+      type: 'bar',
       data: {
         labels,
         datasets: [
@@ -48,10 +48,11 @@ export class BooksByAuthorChartComponent implements OnInit {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: { legend: { display: false } },
-        indexAxis: 'y', // barra horizontal
+        indexAxis: 'y',       
         scales: { x: { beginAtZero: true } }
-      }
+      },
     });
   }
 }

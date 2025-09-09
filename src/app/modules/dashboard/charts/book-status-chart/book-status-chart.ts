@@ -15,8 +15,7 @@ export class BookStatusChartComponent implements OnInit {
 
   async ngOnInit() {
     const listBooks = await this.bookService.getAll();
-
-    // Conta quantos livros em cada status
+    
     const statusCount = {
       TO_READ: listBooks.filter(b => b.status === BookStatus.TO_READ).length,
       READING: listBooks.filter(b => b.status === BookStatus.READING).length,

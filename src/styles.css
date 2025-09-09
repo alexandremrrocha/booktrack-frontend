@@ -155,10 +155,17 @@
 }
 
 .dashboard-title {
-  font-size: 2rem;
-  color: #4caf50;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
   margin-bottom: 20px;
   text-align: center;
+}
+
+.dashboard-title i {
+  margin-right: 0.5rem; 
+  color: #4caf50; 
 }
 
 .dashboard-grid {
@@ -167,7 +174,6 @@
   gap: 20px;
 }
 
-/* Faz o conteúdo do card ocupar toda largura disponível */
 .card {
   background: #fff;
   padding: 20px;
@@ -175,18 +181,16 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* <- importante para o chart preencher a largura */
+  align-items: stretch;
 }
 
-/* container que controla a altura do canvas */
 .chart-container {
   width: 100%;
-  height: 360px; /* ajuste para o que preferir: 300/360/420px */
+  height: 360px; 
   display: block;
   margin-top: 12px;
 }
 
-/* força o canvas a preencher o container */
 .chart-container canvas {
   width: 100% !important;
   height: 100% !important;
