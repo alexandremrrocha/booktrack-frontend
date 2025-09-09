@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, ChartType, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 import { BookService } from '../../../../services/book/book.service';
-
-Chart.register(...registerables);
 
 @Component({
   selector: 'app-books-by-category-chart',
@@ -22,7 +20,7 @@ export class BooksByCategoryChartComponent implements OnInit {
     });
 
     new Chart('booksByCategoryChart', {
-      type: 'bar' as ChartType,
+      type: 'bar',
       data: {
         labels: Object.keys(categoryMap),
         datasets: [{

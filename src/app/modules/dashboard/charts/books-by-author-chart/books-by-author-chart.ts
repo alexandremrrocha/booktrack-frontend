@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, ChartType, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 import { BookService } from '../../../../services/book/book.service';
-
-Chart.register(...registerables);
 
 @Component({
   selector: 'app-books-by-author-chart',
@@ -32,7 +30,6 @@ export class BooksByAuthorChartComponent implements OnInit {
 
     const labels = top10.map(([author]) => author);
     const data = top10.map(([, count]) => count);
-
 
     new Chart('booksByAuthorChart', {
       type: 'bar',

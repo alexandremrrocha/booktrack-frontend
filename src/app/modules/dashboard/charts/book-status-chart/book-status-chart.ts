@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, ChartType, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 import { BookService } from '../../../../services/book/book.service';
 import { BookStatus } from '../../../book/book-status.enum';
-
-Chart.register(...registerables);
 
 @Component({
   selector: 'app-book-status-chart',
@@ -23,7 +21,7 @@ export class BookStatusChartComponent implements OnInit {
     };
 
     new Chart('bookStatusChart', {
-      type: 'doughnut' as ChartType,
+      type: 'doughnut',
       data: {
         labels: ['Para Ler', 'Lendo', 'Lido'],
         datasets: [{
